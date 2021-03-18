@@ -33,7 +33,7 @@ const projects=[
 const ProjectsSeacrhableList = () => {
      const [searchText, setsearchText] = useState("")
      const [finished, setfinished] = useState(false)
-    
+     const [selectedIndex, setselectedIndex] = useState(0)
 
      const setFinishedFilter=e=>{
          setfinished(!finished)
@@ -41,8 +41,8 @@ const ProjectsSeacrhableList = () => {
      const scrollBarStye=`
      scrollbar
      scrollbar-thin
-     hover:scrollbar-thumb-gray-500
-     scrollbar-thumb-gray-0
+     hover:scrollbar-thumb-green-500
+     scrollbar-thumb-green-400
      scrollbar-track-gray-0
      `
 
@@ -52,7 +52,7 @@ const ProjectsSeacrhableList = () => {
 
      return (
         <div   className="w-full h-full  flex flex-col " > 
-            <div className=" z-10 w-full  left-0 top-0  mb-2 " >
+            <div className=" z-10 w-full  left-0 top-0  mb-2 p-2" >
                  <CardFrame padding={true} >
                       <div className="flex flex-row justify-between items-center mb-2 " >
                              <Input {...{value:searchText,setValue:setsearchText}}  />
@@ -67,9 +67,9 @@ const ProjectsSeacrhableList = () => {
                  </CardFrame>
             </div>
       
-
-            <div className={"flex-1 w-full  overflow-y-auto "+scrollBarStye} >
-                 { projects.map((p,index)=> <ProjectLink key={index} project={p} />)  }
+            
+            <div className={"flex-1 w-full  overflow-y-auto  px-2  "+scrollBarStye} >
+                 { projects.map((p,index)=> <ProjectLink key={index} project={p} selected={selectedIndex===index} />)  }
             </div>
             
         </div>

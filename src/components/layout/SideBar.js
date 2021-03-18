@@ -3,7 +3,7 @@ import ProjectsSeacrhableList from "../Projects/ProjectsSeacrhableList"
 
 const SideBar = () => {
     return (
-        <div className="relative  w-64 h-full bg-green-300 p-2 border-r border-gray-200 shadow-lg" >
+        <div className="relative  w-64 h-full bg-green-300   border-r border-gray-200 shadow-lg" >
             <ProjectsSeacrhableList />
         </div>
     )

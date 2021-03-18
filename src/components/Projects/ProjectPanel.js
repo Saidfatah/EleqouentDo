@@ -19,7 +19,7 @@ export const ProjectPanel = () => {
             <CardFrame ovrride=" shadow-xl1 flex flex-row pl-4 py-2 " border_bottom={true} >
                 <div >
                     <div className="flex flex-row justify-between items-end " >
-                        <h1 className="mr-1 text-3xl text-gray-700 " >PROJECT TITLE</h1>
+                        <h1 className="mr-1 text-3xl text-gray-500  " >PROJECT TITLE</h1>
 
                         <div className="flex flex-row items-center  " >
                             <button onClick={e=>console.log('click')} > 

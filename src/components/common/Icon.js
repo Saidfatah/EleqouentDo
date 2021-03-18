@@ -182,6 +182,19 @@ const Icon = ({name,color,hoverColor}) => {
      </svg>
      
     }
+    if(name === "arrow_right-single"){
+        const pathProps ={ 
+            strokeLinecap:"round",
+            strokeLinejoin:"round",
+            strokeWidth:"2",
+            d:"M9 5l7 7-7 7"
+        }
+
+        IconSvg=<svg {...svgProps}>
+        <path {...pathProps} />
+     </svg>
+     
+    }
 
     if(IconSvg === null) return null
     return (
