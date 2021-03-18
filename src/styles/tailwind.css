@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  *{
+    padding: 0;
+    margin: 0;
+    box-sizing:  border-box;
+  }
+  button:focus{
+    @apply outline-none;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+  }
+  body{
+    overflow: hidden;
+  }
+}
+

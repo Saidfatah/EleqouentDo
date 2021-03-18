@@ -1,10 +1,8 @@
-import './App.css';
+import Base from './components/layout/Base'
 
-function App() {
+const App=()=> {
   return (
-    <div >
-       <h1 className="text-red-500" >TEST</h1>
-    </div>
+    <Base />
   );
 }
 
