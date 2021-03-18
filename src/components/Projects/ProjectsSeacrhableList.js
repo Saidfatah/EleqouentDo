@@ -3,25 +3,12 @@ import Input from '../common/Input'
 import Icon from '../common/Icon'
 import CardFrame from '../common/CardFrame'
 import ProjectLink from './ProjectLink'
+import { eventsService} from '../../rxjs/ModalService';
 
 const project=(title)=>({
     title
 })
 const projects=[
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
     project("smardis db modeling"),
     project("smardis db modeling"),
     project("smardis db modeling"),
@@ -38,6 +25,9 @@ const ProjectsSeacrhableList = () => {
      const setFinishedFilter=e=>{
          setfinished(!finished)
      }
+     const revealCreateProjectModal =e=>{
+        eventsService.sendEvent('REVEAL_MODAL',true);
+     }
      const scrollBarStye=`
      scrollbar
      scrollbar-thin
@@ -52,24 +42,36 @@ const ProjectsSeacrhableList = () => {
 
      return (
         <div   className="w-full h-full  flex flex-col " > 
-            <div className=" z-10 w-full  left-0 top-0  mb-2 p-2" >
-                 <CardFrame padding={true} >
-                      <div className="flex flex-row justify-between items-center mb-2 " >
-                             <Input {...{value:searchText,setValue:setsearchText}}  />
-                             <button>
-                                <Icon name="search" color="text-gray-500" hoverColor="text-green-300" />
-                             </button>
-                      </div>
-                      <button className="flex flex-row items-center" onClick={setFinishedFilter} > 
-                            <Icon name={iconName} color={checkIconColor} hoverColor={checkIconHoverColor} />
-                            <p className={"text-gray-500 text-sm "+checkIconColor} >finished projects</p>
-                      </button>
-                 </CardFrame>
-            </div>
+        
+               <div className="w-full   mb-2 p-2" >
+                    <CardFrame padding={true} >
+                         <div className="flex flex-row justify-between items-center mb-2 " >
+                                <Input {...{value:searchText,setValue:setsearchText}}  />
+                                <button>
+                                   <Icon name="search" color="text-gray-500" hoverColor="text-green-300" />
+                                </button>
+                         </div>
+                         <button className="flex flex-row items-center" onClick={setFinishedFilter} > 
+                               <Icon name={iconName} color={checkIconColor} hoverColor={checkIconHoverColor} />
+                               <p className={"text-gray-500 text-sm "+checkIconColor} >finished projects</p>
+                         </button>
+                    </CardFrame>
+               </div>
       
             
             <div className={"flex-1 w-full  overflow-y-auto  px-2  "+scrollBarStye} >
-                 { projects.map((p,index)=> <ProjectLink key={index} project={p} selected={selectedIndex===index} />)  }
+                 { projects.map((p,index)=> <ProjectLink key={index} project={p} setselectedIndex={setselectedIndex} index={index} selected={selectedIndex===index} />)  }
+            </div>
+
+            <div>
+                <div className="p-2" >
+                    <CardFrame padding={true} >
+                         <button onClick={revealCreateProjectModal} className="w-full flex flex-row justify-between items-center" > 
+                                <p className="text-green-500" >Create new project</p>
+                                <Icon name={"plus"} color={checkIconColor} hoverColor={checkIconHoverColor} />
+                         </button>
+                    </CardFrame>
+               </div>
             </div>
             
         </div>

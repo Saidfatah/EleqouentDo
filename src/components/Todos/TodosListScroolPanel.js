@@ -39,14 +39,14 @@ const todo=(title,index)=>({
      todoList('list 1',todos,.3),
      todoList('list 1',todos,.3),
  ]
-export const TodosListScroolPanel =(props)=>{
+export const TodosListScroolPanel =({title})=>{
     // scrollbar-thin hover:scrollbar-thumb-gray-500 scrollbar-thumb-gray-0 scrollbar-track-gray-0 
     let TodosListScroolPanelWdth=1500
     let scrollAreaWidth = TodosListScroolPanelWdth-16
 
 
     return <div style={{width:1500}} className="h-full  p-2" >
-          <h1 className="text-white" >Active</h1>
+          <h1 className=" text-gray-500 text-xl mb-2" >{title}</h1>
 
           <div style={{width:scrollAreaWidth,height:500}} className="relative   p-2 ">
             {

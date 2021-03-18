@@ -38,8 +38,8 @@ export const ProjectPanel = () => {
                 
             </CardFrame>
             <div className={"p-3 overflow-x-scroll h-screen   "} >
-                 <TodosListScroolPanel /> 
-                 <TodosListScroolPanel /> 
+                 <TodosListScroolPanel title="Active lists" /> 
+                 <TodosListScroolPanel title="Done lists"/> 
             </div>
     </div>  
  
