@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({value,setValue}) => {
+const Input = ({value,setValue,placeholder}) => {
     return (
         <input 
         onChange={e=>{
@@ -8,8 +8,8 @@ const Input = ({value,setValue}) => {
             setValue(e.target.value)
         }}
         value={value}
-        className={" text-gray-500 text-sm border-gray-300 border-b focus:border-green-300 h-4  py-4 w-full outline-none "}
-        placeholder="search for a project"  
+        className={" text-gray-500 text-sm border-gray-300 border rounded-xl pl-2 focus:border-green-300 h-4  py-4 w-full outline-none "}
+        placeholder={placeholder}  
         />
     )
 }

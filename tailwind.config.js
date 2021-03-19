@@ -12,17 +12,34 @@ module.exports = {
        },
 
       animation: {
-        slide_down : 'slide_down .5s ease-in forwards',
+        slide_down : 'slide_down .3s ease-out forwards',
         slide_up : 'slide_up .5s ease-in forwards',
+        fade_in : 'fade_in .3s ease-in forwards',
+        fade_in_fast : 'fade_in_fast .1s ease-in forwards',
       },
       keyframes: {
+        fade_in_fast: {
+           '0%': { opacity: '0' },
+           '100%': { opacity: '.3' }
+        },
+        fade_in: {
+           '0%': { opacity: '0' },
+           '100%': { opacity: '1' }
+        },
         slide_up: {
            '0%': { height: '150px' },
            '100%': { height: '0px' }
         },
         slide_down: {
-           '0%': { height: '0px' },
-           '100%': { height: '150px' }
+           '0%': { 
+             transform: 'translateY(-2%)',
+             animationTimingFunction: "cubic-bezier(0.8, 0, 1, 1)"
+           },
+           '100%': {
+              transform: 'translateY(0%)' ,
+              animationTimingFunction: "cubic-bezier(0, 0, 0.2, 1)"
+
+            }
         }
       }, 
   

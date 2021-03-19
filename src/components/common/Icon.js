@@ -1,15 +1,16 @@
 import React from 'react'
 
-const Icon = ({name,color,hoverColor}) => {
+const Icon = ({name,color,hoverColor,size,gorupHover}) => {
 
     if(name === null || name ==="") return null
 
     let IconSvg=null
     let COLOR=color || "text-gray-300"
     let COLOR_HOVER=hoverColor || "text-gray-400"
+    let SIZE=size || "h-5 w-5"
     
     const svgProps ={ 
-        className: "h-5 w-5  "+COLOR+" hover:"+COLOR_HOVER ,
+        className: SIZE+" "+COLOR+(gorupHover?" group-hover:"+COLOR_HOVER:" hover:"+COLOR_HOVER) ,
         xmlns    : "http://www.w3.org/2000/svg" ,
         fill     : "none" ,
         viewBox  : "0 0 24 24" ,

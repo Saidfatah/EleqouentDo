@@ -10,13 +10,22 @@ const ProjectLink = ({project,index,selected,setselectedIndex}) => {
        console.log({title})
   }
 
-  return <button className=" w-full mb-2  " onClick={onclick} >
-    <CardFrame padding={true} >
-      <div className="flex flex-row items-center justify-between  " >
-           <h1 className={"text-xs  "+(selected?"text-green-500  font-bold ":"text-gray-600 ")} >{title} </h1>
-           <Icon name={selected?"arrow_right-double":"arrow_right-single"} color="text-green-300"  hoverColor="text-green-500" />
+  return <button className=" w-full mb-2 group  " onClick={onclick} >
+      <div className={"flex flex-row items-center justify-between   p-1 "+(selected?"bg-green-300 ":"group-hover:bg-green-200")} >
+           <h1 
+              className={"text-xs  "+(
+                selected
+                ?"text-white   "
+                :" text-gray-500  ")
+                } >
+             {title} 
+            </h1>
+           <Icon 
+           name={selected?"arrow_right-double":"arrow_right-single"} 
+           gorupHover={true} 
+           color={selected?"text-white":"text-gray-300"}  
+           hoverColor={selected?"text-white" :"text-green-300"}/>
       </div>
-    </CardFrame>
   </button>
 
 }
