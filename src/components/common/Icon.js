@@ -210,11 +210,7 @@ const Icon = ({name,color,hoverColor,size,gorupHover}) => {
     }
 
     if(IconSvg === null) return null
-    return (
-        <div >
-            {IconSvg}
-        </div>
-    )
+    return IconSvg
 }
 
 export default Icon
