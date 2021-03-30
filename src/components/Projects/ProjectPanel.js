@@ -1,7 +1,6 @@
 import React from 'react'
 import TodosListScroolPanel from '../Todos/TodosListScroolPanel'
 import ProjectProgress from './ProjectProgress'
-import CardFrame from '../common/CardFrame'
 import Icon from '../common/Icon'
 import Menu from '../layout/Menu'
 import { eventsService} from '../../rxjs/ModalService'
@@ -14,9 +13,16 @@ export const ProjectPanel = () => {
     const revealFinishProjectModal =e=>{
         eventsService.sendEvent('REVEAL_FINISH_PROJECT_MODAL',"project id");
      }
-    
+  
+     
     return  <div className=" w-full h-screen flex flex-col relative ">
-            <CardFrame ovrride=" shadow-xl1 flex    justify-between pl-4 py-2 md:flex-row sm:flex-col " border_bottom={true} >
+            <div className={`bg-white
+                              text-left
+                              shadow-st
+                             border-b border-gray-200 
+                             shadow-xl1 flex    justify-between pl-4 py-2 md:flex-row sm:flex-col
+                             `}  
+            style={{boxShadow:"0px 0px 10px 2px rgba(0,0,0,.05)"}} >
                 <div className="flex-1" >
                     <div className="
                     flex  
@@ -46,7 +52,7 @@ export const ProjectPanel = () => {
                    <ProjectProgress progress={.4} />
                 </div>
                 <Menu />
-            </CardFrame>
+            </div>
             <div className={"p-3 overflow-x-scroll h-screen  relative "} >
                  <TodosListScroolPanel title="Active lists" /> 
                  <TodosListScroolPanel title="Done lists"/> 

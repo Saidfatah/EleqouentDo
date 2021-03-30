@@ -1,6 +1,5 @@
 import React from 'react'
 import Icon from './Icon'
-import CardFrame from './CardFrame'
 
 const Modal = ({children,isModalVisible,setisModalVisible,overlay,title,titleColor}) => {
 
@@ -31,6 +30,7 @@ const Modal = ({children,isModalVisible,setisModalVisible,overlay,title,titleCol
            setisModalVisible(false)
    }
 
+   
     return (
     <div className="absolute z-50 w-full h-scree animate-fade_in "  >
       <div  className={"h-screen w-full flex items-center justify-center min-h-screen"}>
@@ -39,7 +39,7 @@ const Modal = ({children,isModalVisible,setisModalVisible,overlay,title,titleCol
           onClick={modalBodyClick} 
           className={"z-40 h-screen w-full flex items-center justify-center min-h-screen group "} 
           >
-             <CardFrame ovrride="w-1/2 h-50 p-4 ">
+            <div className={`bg-white rounded-lg text-left shadow-st w-1/2 h-50 p-4  `}  style={{boxShadow:"0px 0px 10px 2px rgba(0,0,0,.05)"}} > 
                <div  className="flex flex-col " >
                   <div className="flex flex-row justify-between items-center" >
                       <h1 className={"font-bold "+(titleColor ||"text-green-500")} >{title}</h1>
@@ -49,7 +49,7 @@ const Modal = ({children,isModalVisible,setisModalVisible,overlay,title,titleCol
                   </div>
                   {children}
                </div>
-             </CardFrame>
+             </div>
            </div>
            <Overlay />
       </div>
