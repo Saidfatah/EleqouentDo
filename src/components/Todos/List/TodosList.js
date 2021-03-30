@@ -1,71 +1,108 @@
-import React  from 'react'
-import TodoItem from './TodoItem'
-import CardFrame from '../../common/CardFrame'
-import Icon from '../../common/Icon'
+import React,{useRef}  from 'react'
 
+import TodoItemTodos from './TodoItemTodos'
+import TodoListHeader from './TodoListHeader'
+import {useDrag,useDrop} from 'react-dnd'
+import {ItemTypes} from '../../../utils/ItemTypes'
 const LIST_WIDTH=200
-const LIST_HEIGHT=200
-const SPACING =32
 
 
-const TodosList = ({todoList,index}) => {
-   const {todos,title,progress}=todoList
-     
-    const PROGRESS= "("+(progress*100) +"% done)"
+let dragIndex = null
+let hoverIndex = null
+const TodosList = ({todoList,index,moveCardList }) => {
+    // const [mouseX, setmouseX] = useState((LIST_WIDTH +SPACING)*index)
+    // const [mouseY, setmouseY] = useState(0)
+    // const [mouseIsDown, setmouseIsDown] = useState(false)
+    const ref = useRef(null);
+    const [{ handlerId,isOver }, drop] = useDrop({
+        accept: ItemTypes.CARD,
+        collect(monitor) {
+            return {
+                handlerId: monitor.getHandlerId(),
+                isOver: monitor.isOver(),
+            };
+        },
+        hover(item, monitor) {
+            if (!ref.current) {
+                return;
+            }
+             dragIndex = item.index;
+             hoverIndex = index;
+            // Don't replace items with themselves
+            if (dragIndex === hoverIndex) {
+                return;
+            }
 
-    const Header=()=>{   
-        return <div className="border-b  border-gray-500" >
-            <div className="w-full flex flex-row items-end justify-between p-2  " >
-                 <div >
-              <h1 className="text-gray-500 font-bold "  >{title}</h1>
-              <p className="text-green-500 text-sm " >{PROGRESS}</p>
-           </div>
-                 <div className="flex flex-row items-center  " >
-                 <button onClick={e=>console.log('click')} > 
-                    <Icon name="trash" color="text-gray-300 "  hoverColor="text-red-300 " />
-                </button>
-                 <button onClick={e=>console.log('click')} > 
-                    <Icon name="setting"  color="text-gray-300 " hoverColor="text-gray-400 " />
-                </button>
-                 <button onClick={e=>console.log('click')} > 
-                 <Icon name="check"  color="text-green-300 " hoverColor="text-green-400 " />
-                </button>
-             </div>
-           </div>
-        </div>
-    }
 
-    const clickStart=e=>{
+            // Determine rectangle on screen
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
 
-    }
-    const clickEnd=e=>{
-        
-    }
+            // Get horizontal middle
+            const hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
 
+            // Determine mouse position
+            const clientOffset = monitor.getClientOffset();
+
+            // Get pixels to the top
+            
+            // Get pixels to the left
+            const hoverClientX = clientOffset.x - hoverBoundingRect.left;
+
+            // Only perform the move when the mouse has crossed half of the items height
+            // When dragging downwards, only move when the cursor is below 50%
+            // When dragging upwards, only move when the cursor is above 50%
+
+       
+            // Dragging to rgiht
+            if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
+                return;
+            }
+            // Dragging to left
+            if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
+                return;
+            }
+           
+
+            // Time to actually perform the action
+             moveCardList(dragIndex, hoverIndex);
+            // Note: we're mutating the monitor item here!
+            // Generally it's better to avoid mutations,
+            // but it's good here for the sake of performance
+            // to avoid expensive index searches.
+            item.index = hoverIndex;
+        },
+    });
+    const [{ isDragging }, drag] = useDrag({
+        type: ItemTypes.CARD,
+        item: () => {
+            return {  type:ItemTypes.CARD, index };
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        })
+    });
+
+
+
+    drag(drop(ref));
+    const opacity=isDragging ? 0 : 1 
+    const {todos,title,progress}=todoList
     return (
         <div 
-        onMouseDown={clickStart}
-        onMouseUp={clickEnd}
-        className="shadow-xl"
-        style={{
-             left:(LIST_WIDTH +SPACING)*index
-        }}
-        className="absolute top-0 " >
-            <CardFrame  padding={0}  isRow={true} border={true} > 
-            <div className="flex flex-col ">
-                 <Header />
-                 <div 
-                 className="pl-2 flex flex-col "
-                 style={{height:LIST_HEIGHT,width:LIST_WIDTH}} 
-                  >
-                     <div className={"flex-1 w-full  overflow-y-auto scrollbar scrollbar-thin hover:scrollbar-thumb-gray-400 scrollbar-thumb-gray-200  scrollbar-track-gray-0 pr-2 "} >
-                          { todos.map((p,index)=><TodoItem key={index} todo={p} />)  }
-                     </div>
-                 </div>
+        ref={ref}
+        style={{width:LIST_WIDTH+2,opacity}}
+        className="shadow-xl mr-1"
+        data-handler-id={handlerId}
+         >
+            <div className='bg-white rounded-lg text-left shadow-st border border-gray-500 inline-flex '  style={{boxShadow:"0px 0px 10px 2px rgba(0,0,0,.05)"}}> 
+                <div className="flex flex-col ">
+                     <TodoListHeader progress={progress} title={title} />
+                     <TodoItemTodos todos={todos} />
+                </div>
             </div>
-            </CardFrame>
         </div>
     )
+
 }
 
 export default TodosList

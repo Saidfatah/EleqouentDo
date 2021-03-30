@@ -83,7 +83,7 @@ const Icon = ({name,color,hoverColor,size,gorupHover}) => {
     }
     if(name === "check_circle_full"){
       
-        IconSvg=<svg className={"h-5 w-5 "+COLOR+" hover:"+COLOR_HOVER}   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        IconSvg=<svg className={SIZE+" "+COLOR+" hover:"+COLOR_HOVER}   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
       </svg>
      
@@ -171,7 +171,7 @@ const Icon = ({name,color,hoverColor,size,gorupHover}) => {
      </svg>
      
     }
-    if(name === "arrow_right-double"){
+    if(name === "arrow_right_double"){
         const pathProps ={ 
             strokeLinecap:"round",
             strokeLinejoin:"round",
@@ -183,7 +183,7 @@ const Icon = ({name,color,hoverColor,size,gorupHover}) => {
      </svg>
      
     }
-    if(name === "arrow_right-single"){
+    if(name === "arrow_right_single"){
         const pathProps ={ 
             strokeLinecap:"round",
             strokeLinejoin:"round",
@@ -191,6 +191,18 @@ const Icon = ({name,color,hoverColor,size,gorupHover}) => {
             d:"M9 5l7 7-7 7"
         }
 
+        IconSvg=<svg {...svgProps}>
+        <path {...pathProps} />
+     </svg>
+     
+    }
+    if(name === "arrow_left_single"){
+        const pathProps ={ 
+            strokeLinecap:"round",
+            strokeLinejoin:"round",
+            strokeWidth:"2",
+            d:"M15 19l-7-7 7-7"
+        }
         IconSvg=<svg {...svgProps}>
         <path {...pathProps} />
      </svg>

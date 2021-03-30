@@ -1,5 +1,4 @@
 import React  from 'react'
-import CardFrame from '../common/CardFrame'
 import Icon from '../common/Icon'
 
 const ProjectLink = ({project,index,selected,setselectedIndex}) => {
@@ -21,7 +20,7 @@ const ProjectLink = ({project,index,selected,setselectedIndex}) => {
              {title} 
             </h1>
            <Icon 
-           name={selected?"arrow_right-double":"arrow_right-single"} 
+           name={selected?"arrow_right_double":"arrow_right_single"} 
            gorupHover={true} 
            color={selected?"text-white":"text-gray-300"}  
            hoverColor={selected?"text-white" :"text-green-300"}/>

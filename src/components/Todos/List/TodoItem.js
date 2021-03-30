@@ -1,11 +1,14 @@
-import React,{useState} from 'react'
+import React,{useState,useRef,memo} from 'react'
 import Icon from '../../common/Icon'
 
 const TodoItem = ({todo}) => {
     const [done, setdone] = useState(todo.done)
+    const ref = useRef(0)
     const {title}=todo
     
     const iconName = done?"check_circle_full" : "check_circle_empty"
+
+    console.log(ref.current++)
 
     return (
         <button 
@@ -17,4 +20,11 @@ const TodoItem = ({todo}) => {
     )
 }
 
-export default TodoItem
+const compare=(prev,next)=>{
+   const prevTodo= prev.todo
+   const nextTodo= next.todo
+
+   if(prevTodo.done !== nextTodo.done) return false
+   return true
+}
+export default memo(TodoItem,compare)

@@ -1,8 +1,13 @@
 import Base from './components/layout/Base'
+import {DndProvider} from 'react-dnd'
+import {HTML5Backend} from 'react-dnd-html5-backend'
+
 
 const App=()=> {
   return (
-    <Base />
+    <DndProvider backend={HTML5Backend}>
+      <Base  />
+    </DndProvider>
   );
 }
 
