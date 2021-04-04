@@ -1,5 +1,6 @@
 import React,{useState,useCallback} from 'react'
 import TodosList from './List/TodosList'
+import TodoListModalLink from './List/TodoListModalLink'
 import update from 'immutability-helper'
 
 const todo=(title,index)=>({
@@ -15,7 +16,16 @@ const todoList=(title,todos,progress)=>({
   progress,
   id:_index++
 })
- const todos=[ 
+const todos=[ 
+     todo('todo1'),
+     todo('todo1'),
+     todo('todo1'),
+     todo('todo1'),
+     todo('todo1'),
+     todo('todo1'),
+     todo('todo1'),
+     todo('todo1'),
+     todo('todo1'),
      todo('todo1'),
 
  ]
@@ -23,25 +33,22 @@ const todoList=(title,todos,progress)=>({
   todoList('list 1',todos,.1),
   todoList('list 2',todos,0),
   todoList('list 3',todos,.5),
- //  todoList('list 1',todos,.3),
- //  todoList('list 1',todos,.3),
- //  todoList('list 1',todos,.3),
- //  todoList('list 1',todos,.3),
- //  todoList('list 1',todos,.3),
+  todoList('list 3',todos,.5),
+  todoList('list 3',todos,.5),
+  todoList('list 3',todos,.5),
+  todoList('list 3',todos,.5),
+  todoList('list 3',todos,.5),
+  todoList('list 3',todos,.5),
+  todoList('list 3',todos,.5),
+  todoList('list 3',todos,.5),
+
 ]
 
- let TodosListScroolPanelWdth=1500
- let scrollAreaWidth = TodosListScroolPanelWdth-16
- let HoverdIndex=null
+
 export const TodosListScroolPanel =({title})=>{
     const [orderTodoLists, setorderTodoLists] = useState([...todoLists])
-    const [mouseIsDown, setmouseIsDown] = useState(false)
-    
-    
-
 
     const moveCardList = useCallback((dragIndex, hoverIndex) => {
-
         const dragCard = orderTodoLists[dragIndex];
         setorderTodoLists(update(orderTodoLists, {
                 $splice: [
@@ -49,38 +56,32 @@ export const TodosListScroolPanel =({title})=>{
                     [hoverIndex, 0, dragCard],
                 ],
         }));
-        
-        // const tempOrderTodoLists=[...orderTodoLists]
-        // const x = orderTodoLists[dragIndex]
-        // tempOrderTodoLists[dragIndex] = orderTodoLists[hoverIndex]
-        // tempOrderTodoLists[hoverIndex] = x
-
-        // setorderTodoLists([...tempOrderTodoLists])
     }, [orderTodoLists]);
    
   
-
-    return <div 
-    style={{minWidth:1500}} 
-    className="h-full  p-2" 
-     >
-          <h1 className=" text-gray-500 text-xl mb-2" >{title}</h1>
-
-          <div 
-          style={{
-            width:scrollAreaWidth,height:500}} 
-            className={"flex flex-row items-start  p-2 "}
-          >
-            {
-            orderTodoLists.map((tl,index)=><TodosList 
-            moveCardList={moveCardList}
-            key={tl.id} 
-            todoList={tl} 
-            index={index} 
-            />)
-            }
+   const wrraperStyle="flex-1  h-screen sm:h-screen w-auto whitespace-nowrap p-2 flex flex-col items-start relative"
+    return <div className={wrraperStyle} >
+          <h1 className=" text-gray-500 text-xl mb-2 " >{title}</h1>
+          <div className="hidden  sm:flex sm:flex-row " >
+              {
+                orderTodoLists.map((tl,index)=><TodosList 
+                moveCardList={moveCardList}
+                key={tl.id} 
+                todoList={tl} 
+                index={index} 
+                />)
+                }
           </div>
-          
+          <div className="flex flex-col   sm:hidden  " >
+              {
+                orderTodoLists.map((tl,index)=><TodoListModalLink 
+                moveCardList={moveCardList}
+                key={tl.id} 
+                todoList={tl} 
+                index={index} 
+                />)
+                }
+          </div>
      </div>
 
 }

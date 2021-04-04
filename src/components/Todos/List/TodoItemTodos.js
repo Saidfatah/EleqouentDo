@@ -9,11 +9,8 @@ const TodoItemTodos = ({todos}) => {
 
     return (
         <div 
-         className="pl-2 flex flex-col "
-         style={{
-             height:LIST_HEIGHT,
-             width:LIST_WIDTH
-            }} 
+         className="pl-2  flex flex-col "
+         style={{ height:LIST_HEIGHT }} 
           >
              <div className={"flex-1 w-full  overflow-y-auto scrollbar scrollbar-thin hover:scrollbar-thumb-gray-400 scrollbar-thumb-gray-200  scrollbar-track-gray-0 pr-2 "} >
                   { todos.map((p,index)=><TodoItem key={index} todo={p} />)  }

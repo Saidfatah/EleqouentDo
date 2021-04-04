@@ -34,13 +34,18 @@ module.exports = {
        animation: {
         slide_down : 'slide_down .3s ease-out forwards',
         slide_up : 'slide_up .5s ease-in forwards',
-        fade_in : 'fade_in .3s ease-in forwards',
+        fade_in : 'fade_in .7s ease-in forwards',
+        fade_out : 'fade_out 1s ease-in forwards',
         fade_in_fast : 'fade_in_fast .1s ease-in forwards',
        },
        keyframes: {
         fade_in_fast: {
            '0%': { opacity: '0' },
            '100%': { opacity: '.3' }
+        },
+        fade_out: {
+           '0%': { opacity: '1' },
+           '100%': { opacity: '0' }
         },
         fade_in: {
            '0%': { opacity: '0' },

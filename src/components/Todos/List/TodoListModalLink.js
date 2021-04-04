@@ -1,18 +1,12 @@
-import React,{useRef}  from 'react'
-
-import TodoItemTodos from './TodoItemTodos'
-import TodoListHeader from './TodoListHeader'
+import React,{useRef} from 'react'
 import {useDrag,useDrop} from 'react-dnd'
 import {ItemTypes} from '../../../utils/ItemTypes'
-const LIST_WIDTH=180
+
 
 
 let dragIndex = null
 let hoverIndex = null
-const TodosList = ({todoList,index,moveCardList }) => {
-    // const [mouseX, setmouseX] = useState((LIST_WIDTH +SPACING)*index)
-    // const [mouseY, setmouseY] = useState(0)
-    // const [mouseIsDown, setmouseIsDown] = useState(false)
+const TodoListModalLink = ({todoList,index,moveCardList }) => {
     const ref = useRef(null);
     const [{ handlerId,isOver }, drop] = useDrop({
         accept: ItemTypes.CARD,
@@ -38,7 +32,7 @@ const TodosList = ({todoList,index,moveCardList }) => {
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
 
             // Get horizontal middle
-            const hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
+            const hoverMiddleY = (hoverBoundingRect.top - hoverBoundingRect.bottom) / 2;
 
             // Determine mouse position
             const clientOffset = monitor.getClientOffset();
@@ -46,7 +40,7 @@ const TodosList = ({todoList,index,moveCardList }) => {
             // Get pixels to the top
             
             // Get pixels to the left
-            const hoverClientX = clientOffset.x - hoverBoundingRect.left;
+            const hoverClientY = clientOffset.y - hoverBoundingRect.bottom;
 
             // Only perform the move when the mouse has crossed half of the items height
             // When dragging downwards, only move when the cursor is below 50%
@@ -54,11 +48,11 @@ const TodosList = ({todoList,index,moveCardList }) => {
 
        
             // Dragging to rgiht
-            if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
             }
             // Dragging to left
-            if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
            
@@ -83,21 +77,17 @@ const TodosList = ({todoList,index,moveCardList }) => {
     });
 
 
-
-    drag(drop(ref));
-    const opacity=isDragging ? 0 : 1 
     const {todos,title,progress}=todoList
+    const opacity=isDragging ? 0 : 1 
+    const PROGRESS= "("+(progress*100) +"% done)"
+    
+    drag(drop(ref));
     return (
-        <div  ref={ref} style={{width:LIST_WIDTH+2,opacity}} className="shadow-xl mr-1" data-handler-id={handlerId} >
-            <div className='bg-white  w-full rounded-lg text-left shadow-st border border-gray-500  '  style={{boxShadow:"0px 0px 10px 2px rgba(0,0,0,.05)"}}> 
-                <div className="w-full flex flex-col ">
-                     <TodoListHeader progress={progress} title={title} />
-                     <TodoItemTodos todos={todos} />
-                </div>
-            </div>
-        </div>
+        <button ref={ref} style={{opacity}} data-handler-id={handlerId}  className="flex flex-row items-center justify-start p-2 bg-white rounded-lg mb-1 shadow-st border border-gray-500 " >
+            <h1 className="text-gray-500 font-bold "  >{title}</h1>
+            <p className="text-green-500 text-sm " >{PROGRESS}</p>
+        </button>
     )
-
 }
 
-export default TodosList
+export default TodoListModalLink

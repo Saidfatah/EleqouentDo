@@ -4,6 +4,11 @@ import SideBar from './SideBar'
 import CreateProject from '../Projects/CreateProject'
 import RemoveProjectModal from '../Projects/RemoveProjectModal'
 import FinishProjectModal from '../Projects/FinishProjectModal'
+import ProjectsDashBoard from '../Projects/ProjectsDashBoard'
+import ProjectPanel from '../Projects/ProjectPanel'
+import Account from '../Auth/Account'
+
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -15,35 +20,22 @@ import {
 const Base = () => {
     return (
         <Router>
-
-             <div className="flex relative  flex-row w-full h-screen  flex-grow: 1" >
-                 <SideBar />
-                 
+             <div className="flex  flex-row   h-screen  flex-grow:1" >
+                <SideBar />
                  <Switch>
                    <Route exact path="/">
                         <div>
                             Home
                         </div>
                     </Route>
-                    <Route path="/project/:id">
-                        <Dashboard/> 
-                    </Route>
-                   
-                    <Route path="/projects">
-                        <div>
-                            projects
-                        </div>
-                    </Route>
+                    <Route path="/project/:id" component={ProjectPanel} />
+                    <Route path="/projects" component={ProjectsDashBoard} />
                     <Route path="/stats">
                         <div>
                             stats
                         </div>
                     </Route>
-                    <Route path="/account">
-                        <div>
-                            account
-                        </div>
-                    </Route>
+                    <Route path="/account" component={Account} />
                 </Switch>
                 
                  <CreateProject />
