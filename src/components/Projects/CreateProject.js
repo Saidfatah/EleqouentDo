@@ -2,14 +2,19 @@ import React,{useState,useEffect} from 'react'
 import Modal from '../common/Modal'
 import Input from '../common/Input'
 import { eventsService} from '../../rxjs/ModalService';
-
+import useCreateProject from '../../hooks/projects/useCreateProject'
 
 const CreateProjectFrom=({setisModalVisible})=>{
     const [title, settitle] = useState("")
     const [estimatedTime, setestimatedTime] = useState(0)
+    const {mutate,isLoading}=useCreateProject()
 
-    const createProjectDispatch=e=>{
-        setisModalVisible(false)
+
+    const createProjectDispatch=async e=>{
+        e.preventDefault()
+        // createProject(title)
+        mutate({ id: new Date(), title})
+        if(!isLoading) setisModalVisible(false)
     }
     const cancel=e=>{
           setisModalVisible(false)

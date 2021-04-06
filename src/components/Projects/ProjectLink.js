@@ -1,32 +1,42 @@
-import React  from 'react'
-import Icon from '../common/Icon'
+import React from 'react'
+import {Link} from "react-router-dom";
 
-const ProjectLink = ({project,index,selected,setselectedIndex}) => {
 
-  const {title}=project
-  const onclick=e=>{
-      setselectedIndex(index)
-       console.log({title})
-  }
+const ProjectLink = ({project,index}) => {
+    const {title,id}=project
 
-  return <button className=" w-full mb-2 group  " onClick={onclick} >
-      <div className={"flex flex-row items-center justify-between   p-1 "+(selected?"bg-green-300 ":"group-hover:bg-green-200")} >
-           <h1 
-              className={"text-xs  "+(
-                selected
-                ?"text-white   "
-                :" text-gray-500  ")
-                } >
-             {title} 
-            </h1>
-           <Icon 
-           name={selected?"arrow_right_double":"arrow_right_single"} 
-           gorupHover={true} 
-           color={selected?"text-white":"text-gray-300"}  
-           hoverColor={selected?"text-white" :"text-green-300"}/>
-      </div>
-  </button>
-
+    
+     const blockStyle=`
+     w-48 
+     h-48 
+     border
+     border-gray-200
+     rounded-md
+     m-1
+     ml-0
+     bg-white
+     shadow-lg
+     flex
+     justify-center
+     items-center
+     hover:bg-gray-100
+     relative
+     `
+    return (
+    <Link style={{
+          animation:`fade_in .2s ${index/18}s cubic-bezier(0.4, 0, 0.2, 1)`,
+          animationFillMode:"forwards",
+          }} 
+          className={blockStyle+" opacity-0"}  
+          to={"project/"+id} >
+               <div>
+                    <p className="text-gray-800  font-bold relative left--10 opacity-0  animate-fade_in_slide_in   " >{title}</p>
+                    <p className="font-light text-sm relative left--10  opacity-0  animate-fade_in_slide_in  " >created <span className=" italic"  >20/10/2012</span></p>
+               </div>
+    </Link> 
+    )
 }
+
+
 
 export default ProjectLink

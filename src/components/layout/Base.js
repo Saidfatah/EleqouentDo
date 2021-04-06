@@ -1,6 +1,7 @@
 import React from 'react'
-import Dashboard from './Dashboard'
 import SideBar from './SideBar'
+import SlideOverSideBar from './SlideOverSideBar'
+import SlideOverSideBarTriggerButton from './SlideOverSideBarTriggerButton'
 import CreateProject from '../Projects/CreateProject'
 import RemoveProjectModal from '../Projects/RemoveProjectModal'
 import FinishProjectModal from '../Projects/FinishProjectModal'
@@ -21,7 +22,9 @@ const Base = () => {
     return (
         <Router>
              <div className="flex  flex-row   h-screen  flex-grow:1" >
-                <SideBar />
+                <SideBar />  
+                <SlideOverSideBar />
+                <SlideOverSideBarTriggerButton />
                  <Switch>
                    <Route exact path="/">
                         <div>

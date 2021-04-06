@@ -88,7 +88,15 @@ const TodosList = ({todoList,index,moveCardList }) => {
     const opacity=isDragging ? 0 : 1 
     const {todos,title,progress}=todoList
     return (
-        <div  ref={ref} style={{width:LIST_WIDTH+2,opacity}} className="shadow-xl mr-1" data-handler-id={handlerId} >
+        <div  ref={ref} 
+        style={{
+            width:LIST_WIDTH+2,
+            opacity,
+            animation:`slide_in .2s ${index/18}s cubic-bezier(0.4, 0, 0.2, 1)`,
+        }} 
+        className="shadow-xl mr-1 relative left--10  " 
+        data-handler-id={handlerId} 
+        >
             <div className='bg-white  w-full rounded-lg text-left shadow-st border border-gray-500  '  style={{boxShadow:"0px 0px 10px 2px rgba(0,0,0,.05)"}}> 
                 <div className="w-full flex flex-col ">
                      <TodoListHeader progress={progress} title={title} />

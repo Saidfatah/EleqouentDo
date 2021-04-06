@@ -1,22 +1,16 @@
 import Base from './components/layout/Base'
 import {DndProvider} from 'react-dnd'
 import {HTML5Backend} from 'react-dnd-html5-backend'
-import _ from 'lodash';
+import { QueryClientProvider } from 'react-query'
+import {queryClient} from './hooks/QueryClients/MainClient'
 
-const tasks =[
-  {title: "make a coffee", role: "employee"},
-  {title: "react the sales target", role: "salesman"},
-  {title: "clean the room", role: "employee"},
-  {title: "call the client", role: "boss"},
-  ]
-const TaskCard = ({task,index} )=>{
-    return <div>{task}</div>
-}
 
 const App=()=> {
   return (
     <DndProvider backend={HTML5Backend}>
-      <Base />
+      <QueryClientProvider client={queryClient}>
+         <Base />
+      </QueryClientProvider>
     </DndProvider>
   );
 

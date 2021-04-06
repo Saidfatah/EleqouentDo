@@ -32,11 +32,13 @@ module.exports = {
         // => @media (min-width: 1536px) { ... }
        },
        animation: {
-        slide_down : 'slide_down .3s ease-out forwards',
-        slide_up : 'slide_up .5s ease-in forwards',
-        fade_in : 'fade_in .7s ease-in forwards',
-        fade_out : 'fade_out 1s ease-in forwards',
-        fade_in_fast : 'fade_in_fast .1s ease-in forwards',
+        slide_down : 'slide_down .3s  cubic-bezier(0.4, 0, 0.2, 1) forwards',
+        slide_up : 'slide_up .5s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
+        fade_in : 'fade_in .7s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
+        fade_in_slide_in : 'fade_in_slide_in .3s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
+        slide_in : 'slide_in .2s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
+        fade_out : 'fade_out 1s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
+        fade_in_fast : 'fade_in_fast .1s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
        },
        keyframes: {
         fade_in_fast: {
@@ -46,6 +48,24 @@ module.exports = {
         fade_out: {
            '0%': { opacity: '1' },
            '100%': { opacity: '0' }
+        },
+        fade_in_slide_in: {
+           '0%': { 
+             opacity: '0',
+             left:-8 
+          },
+           '100%': { 
+             opacity: '1',
+             left:0  
+          }
+        },
+        slide_in: {
+           '0%': { 
+             left:-10 
+          },
+           '100%': { 
+             left:0  
+          }
         },
         fade_in: {
            '0%': { opacity: '0' },
@@ -67,6 +87,9 @@ module.exports = {
             }
         }
        }, 
+       inset:{
+        '-10': '-.5rem',
+       }
   
     },
   

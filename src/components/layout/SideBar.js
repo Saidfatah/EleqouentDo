@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import Icon from '../common/Icon'
 import { eventsService} from '../../rxjs/ModalService';
-import {Link,NavLink,useLocation} from "react-router-dom";
+import {Link,useLocation} from "react-router-dom";
 
 
 const SIDE_BAR_WIDTH=150
@@ -62,7 +62,7 @@ const SideBar = () => {
             maxWidth:sidebarWidth,
             transition:"min-width .3s cubic-bezier(0.4, 0, 0.2, 1)"
         }}  
-        className="h-full  bg-gray-700  " 
+        className="h-full  bg-gray-700 hidden  sm:block  " 
         >
             <div className={"h-full flex-auto flex flex-col   pt-5  justify-between " }>
                      <nav>

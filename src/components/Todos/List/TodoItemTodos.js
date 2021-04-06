@@ -5,7 +5,6 @@ const LIST_WIDTH=200
 const LIST_HEIGHT=200
 const TodoItemTodos = ({todos}) => {
     const ref = useRef(0)
-    console.log(ref.current++)
 
     return (
         <div 

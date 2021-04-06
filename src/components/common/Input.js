@@ -4,7 +4,6 @@ const Input = ({value,setValue,placeholder,type,override}) => {
     return (
         <input 
         onChange={e=>{
-            console.log(e.target.value)
             setValue(e.target.value)
         }}
         value={value}

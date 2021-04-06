@@ -1,49 +1,37 @@
 import React from 'react'
 import Icon from '../common/Icon'
-import {Link} from "react-router-dom";
+import { eventsService} from '../../rxjs/ModalService'
+import ProjectLink from './ProjectLink'
+import useFecthProjects from '../../hooks/projects/useFecthProjects'
 
-let i = 0
-const project=(title,id)=>({
-    title,
-    id: i++
-})
 
-const projects=[
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-    project("smardis db modeling"),
-]
-
-const blockStyle="w-48 h-48  border border-gray-200 rounded-md m-1 ml-0 bg-white shadow-lg  flex justify-center items-center hover:bg-gray-100"
-const ProjectLink = ({project,index}) => {
-    const {title,id}=project
-
-    return ( <Link className={blockStyle}  to={"project/"+id} >
-               <div>
-                    <p className="text-gray-800  font-bold   " >{title}</p>
-                    <p className="font-light text-sm " >created <span className=" italic"  >20/10/2012</span></p>
-               </div>
-        </Link> )
-}
 
 
 const ProjectsDashBoard = () => {
+    const {data : projects}= useFecthProjects()
+ 
+
+    const revealCreateProjectModal=e=>{
+        eventsService.sendEvent('REVEAL_CREATE_PROJECT_MODAL',"project id");
+    }
+
+
+    const blockStyle=`
+      w-48 
+      h-48 
+      border
+      border-gray-200
+      rounded-md
+      m-1
+      ml-0
+      bg-white
+      shadow-lg
+      flex
+      justify-center
+      items-center
+      hover:bg-gray-100
+      relative
+     `
     return (
         <div className="relative h-full overflow-y-auto flex-1" >
              
@@ -52,11 +40,11 @@ const ProjectsDashBoard = () => {
             <h1 className={"relative  text-white z-9  font-bold "} >Your Projects</h1>
                 <div   className={"relative h-full w-full flex flex-wrap"} >
                  
-                    <button className={blockStyle} >
+                    <button onClick={revealCreateProjectModal} className={blockStyle} >
                             <Icon name="plus"  color="text-blue-600" gorupHover={true} hoverColor="text-blue-700" />
                            <p className="text-blue-600  font-bold group-hover:text-blue-300 " >Create new project</p>
                     </button>
-                    { projects.map((p,index)=> <ProjectLink key={p.id} project={p}  index={index}  />)  }
+                    {projects && projects.map((p,index)=> <ProjectLink key={p.id} project={p}  index={index}  />)  }
                 </div>
             </div>
         </div>
