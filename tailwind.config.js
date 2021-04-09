@@ -89,7 +89,11 @@ module.exports = {
        }, 
        inset:{
         '-10': '-.5rem',
-       }
+       },
+       padding:{
+        'half': '.25rem',
+        '3quarders': '.25rem',
+       },
   
     },
   

@@ -3,8 +3,6 @@ import SideBar from './SideBar'
 import SlideOverSideBar from './SlideOverSideBar'
 import SlideOverSideBarTriggerButton from './SlideOverSideBarTriggerButton'
 import CreateProject from '../Projects/CreateProject'
-import RemoveProjectModal from '../Projects/RemoveProjectModal'
-import FinishProjectModal from '../Projects/FinishProjectModal'
 import ProjectsDashBoard from '../Projects/ProjectsDashBoard'
 import ProjectPanel from '../Projects/ProjectPanel'
 import Account from '../Auth/Account'
@@ -42,8 +40,6 @@ const Base = () => {
                 </Switch>
                 
                  <CreateProject />
-                 <RemoveProjectModal />
-                 <FinishProjectModal />
              </div>
         </Router>
     )

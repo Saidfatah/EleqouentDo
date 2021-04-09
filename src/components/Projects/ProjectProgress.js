@@ -1,8 +1,10 @@
 import React from 'react'
 
 const ProjectProgress = ({progress}) => {
-
-    const PROGRESS= (progress*100)+"%"
+  
+    let PROGRESS
+    if(progress ===1)PROGRESS= "100%"
+    else PROGRESS= (parseFloat(progress*100).toFixed(1))+"%"
     return (
         <div className="pr-1 sm:w-full animate-fade_in "  >
             <h1 className="text-green-400 font-bold text-sm " >{PROGRESS+" of the prject is completed"} </h1>

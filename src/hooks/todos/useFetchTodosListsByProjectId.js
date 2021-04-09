@@ -23,16 +23,14 @@ import {TodoItemModel} from './Schemas/TodoItemModel'
   ]
 
  const todoLists=[ 
-     TodoListModel("2021-04-06T13:04:49.142Z","fix bugs",todos1,0),
-     TodoListModel("2021-04-06T13:04:49.142Z","ideas sketch",todos2,1),
      TodoListModel(0,"List intial",todos3,0),
-     TodoListModel("2021-04-06T13:43:34.105Z","List intial",todos4,0),
  ]
 
 const getTodoListsByPorjectId = async(args)=> {
     try {
         const {queryKey}=args
-        const projectId=queryKey[0]
+        const projectId=queryKey[0].split("TODO_LIST")[1]
+
 
         let todoListReturn = null
         const todoLists_from_cache=localStorage.getItem('todoLists')
@@ -59,7 +57,7 @@ const getTodoListsByPorjectId = async(args)=> {
     }
 };
 const useFetchTodosListsByProjectId = (projectId) => {
-    return  useQuery(projectId,getTodoListsByPorjectId)
+    return  useQuery("TODO_LIST"+projectId,getTodoListsByPorjectId)
 }
 
 export default useFetchTodosListsByProjectId

@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useLayoutEffect} from 'react'
+import React,{useState,useEffect,useLayoutEffect,memo} from 'react'
 import { eventsService} from '../../rxjs/ModalService'
 import ProjectProgress from './ProjectProgress'
 import Icon from '../common/Icon'
@@ -20,9 +20,8 @@ function useWindowSize() {
     return size;
 }
 
-const ProjectPanelHeader = ({progress,title}) => {
+const ProjectPanelHeader = ({progress,title,projectId}) => {
     const [expanded, setexpanded] = useState(true)
-    // const [width_is_under_sm_break_point, setwidth_is_under_sm_break_point] = useState(false)
     const [sidebarWidth, setsidebarWidth] = useState(SIDE_BAR_WIDTH)
     const [width] = useWindowSize();
 
@@ -30,50 +29,40 @@ const ProjectPanelHeader = ({progress,title}) => {
     useEffect(() => {
          if( BREAK_POINT_COND)setexpanded(true)
     }, [width])
-
-    const revealRemoveProjectModal =e=>{
-        eventsService.sendEvent('REVEAL_REMOVE_PROJECT_MODAL',"project id");
-     }
-    const revealFinishProjectModal =e=>{
-        eventsService.sendEvent('REVEAL_FINISH_PROJECT_MODAL',"project id");
-     }
-
-     
+ 
+ 
+    const revelModal=(modal_Id,value)=>e=>{
+        console.log(modal_Id)
+        eventsService.sendEvent(modal_Id,value);
+    }
     const expandSideBar =e=>{
         const NEW_WIDTH= expanded ? 50 :SIDE_BAR_WIDTH 
         setsidebarWidth(NEW_WIDTH)
         setexpanded(!expanded)
     }
 
-    const projectTitleStyle="mr-1 text-3xl text-gray-500 maxsm:text-xl text relative left--10 opacity-0  animate-fade_in "
-    const projectHeaderStyle="bg-white border-b  border-r pt-4 sm:pt-0 sm:h-screen flex  justify-between border-gray-300 flex-col"
+   
+
+    const Button=({title,onClick,icon,color,hover_color})=>{
+      return  <button className="flex flex-row justify-start  mr-2 sm:mr-0  sm:w-full p-1 mb-1 shadow-md " onClick={onClick} > 
+          <Icon name={icon} color={color}  hoverColor={hover_color} />
+          {expanded && <span className='ml-1  text-gray-600 animate-fade_in ' >{title}</span>}
+     </button>
+    }
+
     return <div 
      style={{
          width:!(BREAK_POINT_COND)?sidebarWidth:"100%",
          transition:"width .2s cubic-bezier(0.4, 0, 0.2, 1)"
      }}
-     className={projectHeaderStyle}  
+     className={"bg-white border-b  border-r pt-4 sm:pt-0 sm:h-screen flex  justify-between border-gray-300 flex-col"}  
      >
    <div className={`pl-1  py-2 text-left  `}>
         <div className="flex  justify-between items-end maxsm:flex-col maxsm:justify-start maxsm:items-start md:flex-row "  >
            <h1 
            style={{ writingMode:!expanded &&!(BREAK_POINT_COND)?"vertical-lr":"initial",}}
-           className={projectTitleStyle} > {title} </h1>
-           {
-               expanded
-               ?<div className={`flex flex-row items-center maxsm:mb-4  animate-fade_in `} >
-                     <button onClick={revealRemoveProjectModal} > 
-                         <Icon name="trash" color="text-gray-300 "  hoverColor="text-red-300 " />
-                     </button>
-                      <button onClick={e=>console.log('click')} > 
-                         <Icon name="setting"  color="text-gray-300 " hoverColor="text-gray-400 " />
-                     </button>
-                      <button onClick={revealFinishProjectModal} > 
-                      <Icon name="check"  color="text-green-300 " hoverColor="text-green-400 " />
-                     </button>
-                </div>
-               :null
-           }
+           className={"mr-1 text-3xl text-gray-500 maxsm:text-xl text relative left--10 opacity-0  animate-fade_in "} > {title} </h1>
+        
            
        </div>
            {
@@ -81,6 +70,34 @@ const ProjectPanelHeader = ({progress,title}) => {
                ?<ProjectProgress progress={progress} />
                :null
            }
+
+         <div className="p-2 flex flex-wrap flex-row sm:block " >
+             <Button
+                   title="Add todoList"   
+                   onClick={revelModal("REVEAL_CREATE_TODOLIST_MODAL",projectId)} 
+                   icon="plus" 
+                   color="text-green-300" 
+                   hover_color="text-green-400"/>
+             <Button
+                   title="Edit Project"   
+                   onClick={revelModal("REVEAL_EDIT_PROJECT_MODAL",projectId)}  
+                   icon="setting" 
+                   color="text-gray-300" 
+                   hover_color="text-green-400"/>
+             <Button
+
+                   title="Finish Project" 
+                   onClick={revelModal("REVEAL_FINISH_PROJECT_MODAL",projectId)} 
+                   icon="check" 
+                   color="text-green-300" 
+                   hover_color="text-green-400"/>
+             <Button
+                   title="Remove Project" 
+                   onClick={revelModal("REVEAL_REMOVE_PROJECT_MODAL",projectId) } 
+                   icon="trash"  
+                   color="text-red-300" 
+                   hover_color="text-green-400"/>
+        </div>
        
    </div>
  
@@ -95,4 +112,14 @@ const ProjectPanelHeader = ({progress,title}) => {
    </div>
 }
 
-export default ProjectPanelHeader
+const compare=(prev,next)=>{
+  const {progress:progressPrev,title:titlePrev,projectId:projectIdPrev}=prev
+  const {progress:progressNext,title:titleNext,projectId:projectIdNext}=next
+  
+  if(progressPrev !== progressNext ) return true
+  if(titlePrev !== titleNext ) return true
+  if(projectIdPrev !== projectIdNext ) return true
+  
+  return false
+}
+export default  memo(ProjectPanelHeader,compare)

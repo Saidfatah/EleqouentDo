@@ -1,6 +1,6 @@
 import React,{useRef} from 'react'
 import {useDrag,useDrop} from 'react-dnd'
-import {ItemTypes} from '../../../utils/ItemTypes'
+import {ItemTypes} from '../../../../utils/ItemTypes'
 
 
 

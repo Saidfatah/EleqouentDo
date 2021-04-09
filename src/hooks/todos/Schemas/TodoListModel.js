@@ -1,5 +1,5 @@
 export const TodoListModel=(projectId,title,todos,orderInProject)=>({
-    id:new Date(),
+    id:new Date().getTime(),
     projectId,
     title,
     progress:0,

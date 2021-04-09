@@ -1,10 +1,18 @@
 import React,{memo} from 'react'
-import Icon from '../../common/Icon'
+import Icon from '../../../common/Icon'
+import { eventsService} from '../../../../rxjs/ModalService'
 
 
-const TodoListHeader = ({title,progress}) => {
-
+const TodoListHeader = ({todoList}) => {
+    const {title,progress }=todoList
     const PROGRESS= "("+(progress*100) +"% done)"
+
+    const revealTodoListEditModal=e=>{
+        eventsService.sendEvent("REVEAL_EDIT_TODOLIST_MODAL",todoList);
+    }
+    const revealTodoListRmoveModal=e=>{
+        eventsService.sendEvent("REVEAL_REMOVE_TODOLIST_MODAL",todoList);
+    }
 
     return <div className="border-b  border-gray-500" >
            <div className="w-full flex flex-row items-end justify-between p-2  " >
@@ -13,10 +21,10 @@ const TodoListHeader = ({title,progress}) => {
                    <p className="text-green-500 text-sm " >{PROGRESS}</p>
                 </div>
                 <div className="flex flex-row items-center  " >
-                     <button onClick={e=>console.log('click')} > 
+                     <button onClick={revealTodoListRmoveModal} > 
                         <Icon name="trash" color="text-gray-300 "  hoverColor="text-red-300 " />
                     </button>
-                     <button onClick={e=>console.log('click')} > 
+                     <button onClick={revealTodoListEditModal} > 
                         <Icon name="setting"  color="text-gray-300 " hoverColor="text-gray-400 " />
                     </button>
                      <button onClick={e=>console.log('click')} > 
@@ -27,14 +35,5 @@ const TodoListHeader = ({title,progress}) => {
     </div>
 }
 
-const compare=(prev,next)=>{
-    const prevprogress= prev.progress
-    const nextprogress= next.progress
-    const prevtitle= prev.title
-    const nexttitle= next.title
 
-
-    if(prevprogress !== nextprogress || prevtitle !== nexttitle ) return false
-    return true
- }
-export default memo(TodoListHeader,compare)
+export default  TodoListHeader

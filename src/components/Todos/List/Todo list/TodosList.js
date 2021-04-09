@@ -1,9 +1,10 @@
 import React,{useRef}  from 'react'
 
-import TodoItemTodos from './TodoItemTodos'
+import TodoListTodos from './Todo Items/TodoListTodos'
 import TodoListHeader from './TodoListHeader'
 import {useDrag,useDrop} from 'react-dnd'
-import {ItemTypes} from '../../../utils/ItemTypes'
+import {ItemTypes} from '../../../../utils/ItemTypes'
+import classnames from "classnames"
 const LIST_WIDTH=180
 
 
@@ -86,7 +87,16 @@ const TodosList = ({todoList,index,moveCardList }) => {
 
     drag(drop(ref));
     const opacity=isDragging ? 0 : 1 
-    const {todos,title,progress}=todoList
+    const {todos,id,projectId,done}=todoList
+    
+    const listCardWrrapperStyle=classnames({
+        "shadow-xl mr-1 relative left--10  " :true,
+    })
+    const listCardStyle=classnames({
+        "bg-white  w-full rounded-lg text-left shadow-st border border-gray-500" :true,
+        "opacity-80":done,
+        "opacity-1":done
+    })
     return (
         <div  ref={ref} 
         style={{
@@ -94,13 +104,13 @@ const TodosList = ({todoList,index,moveCardList }) => {
             opacity,
             animation:`slide_in .2s ${index/18}s cubic-bezier(0.4, 0, 0.2, 1)`,
         }} 
-        className="shadow-xl mr-1 relative left--10  " 
+        className={listCardWrrapperStyle}
         data-handler-id={handlerId} 
         >
-            <div className='bg-white  w-full rounded-lg text-left shadow-st border border-gray-500  '  style={{boxShadow:"0px 0px 10px 2px rgba(0,0,0,.05)"}}> 
+            <div className={listCardStyle}  style={{boxShadow:"0px 0px 10px 2px rgba(0,0,0,.05)"}}> 
                 <div className="w-full flex flex-col ">
-                     <TodoListHeader progress={progress} title={title} />
-                     <TodoItemTodos todos={todos} />
+                     <TodoListHeader todoList={todoList}   />
+                     <TodoListTodos todoListId={id} todos={todos} projectId={projectId} />
                 </div>
             </div>
         </div>

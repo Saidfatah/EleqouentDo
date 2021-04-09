@@ -31,11 +31,12 @@ const ProjectsDashBoard = () => {
       items-center
       hover:bg-gray-100
       relative
+      animate-slide_in
      `
     return (
         <div className="relative h-full overflow-y-auto flex-1" >
              
-            <div className="absolute top-0 left-0 w-full h-2/4 bg-blue-600 z-0" />
+            <div className="absolute top-0 left-0 w-full h-2/4 bg-blue-600 z-0 animate-fade_in " />
             <div className=" p-28   z-9 " >
             <h1 className={"relative  text-white z-9  font-bold "} >Your Projects</h1>
                 <div   className={"relative h-full w-full flex flex-wrap"} >

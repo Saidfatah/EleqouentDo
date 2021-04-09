@@ -23,11 +23,11 @@ const CreateProjectFrom=({setisModalVisible})=>{
     return <form>
     <div  >
         <h3 className="text-gray-400" >Project title</h3>
-        <Input value={title} setValue={settitle} placeholder="Project title" override="mb-2" />
+        <Input value={title} setValue={settitle} hasBorder={true} placeholder="Project title" override="mb-2" />
     </div>
     <div>
         <h3 className="text-gray-400" >Estimated time </h3>
-        <Input value={estimatedTime} setValue={setestimatedTime}  override="mb-2"  placeholder="estimated time" type="number" />
+        <Input value={estimatedTime} setValue={setestimatedTime} hasBorder={true}  override="mb-2"  placeholder="estimated time" type="number" />
     </div>
     <div className="w-full flex flex-row justify-end items-center" >
        <button 
@@ -48,7 +48,6 @@ const CreateProjectFrom=({setisModalVisible})=>{
 
 const CreateProject = () => {
     const [isModalVisible, setisModalVisible] = useState(false)
- 
 
     useEffect(() => {
         let subscription = eventsService.getEventNotification().subscribe((eventNotification) => 
@@ -61,14 +60,8 @@ const CreateProject = () => {
       
         return ()=>{ subscription.unsubscribe()}
     }, [])
-      
-
-    
-
-
+ 
     return (
-
-
     <Modal {...{ 
         isModalVisible, 
         setisModalVisible , 
