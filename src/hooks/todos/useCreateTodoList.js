@@ -5,9 +5,6 @@ import {TodoListModel} from './Schemas/TodoListModel'
 
 
 
-
-
-
 let newTodoList = null
 const useCreateTodoList = (projectId) => {
     const createNewList=(previousData,title,todos,toJson)=>{
@@ -32,7 +29,7 @@ const useCreateTodoList = (projectId) => {
         const project_todo_Lists= localStorage.getItem('todoLists')
     
         const updatedList = createNewList(project_todo_Lists,title,todos,true)
-        localStorage.setItem('todoLists',JSON.stringify(updatedList))
+        console.log(updatedList.length)
 
        //update projectcs todosCount 
        //recalculate prject progress - calculate how much the newly created todolist repsents
@@ -59,7 +56,8 @@ const useCreateTodoList = (projectId) => {
          localStorage.setItem('projects',JSON.stringify(temp_projects))
          queryClient.refetchQueries(projectId,temp_projects)
        } 
-      
+
+        localStorage.setItem('todoLists',JSON.stringify(updatedList))
         return  newTodoList
     };
 
@@ -67,9 +65,8 @@ const useCreateTodoList = (projectId) => {
         createTodoList,
         {
           onSuccess:(newTodoList)=>queryClient.setQueryData("TODO_LIST"+projectId,(old)=>{
-              if(old && old.length)
-              return [...old,newTodoList]
-              return [newTodoList]
+              if(old && old.length) return [...old,newTodoList]
+              if(!old || !old.length) return [newTodoList]
           }),
           onMutate:(values)=>{
              //cancel any outgoing refecthing calls to prevent them from cllobering our optimistic update
@@ -77,11 +74,10 @@ const useCreateTodoList = (projectId) => {
 
              const previousData=queryClient.getQueryData("TODO_LIST"+projectId)
              const {title,todos}=values
-
+             
              const updatedList = createNewList(previousData,title,todos,false)
-
+            
              queryClient.setQueryData("TODO_LIST"+projectId,updatedList)
-
              return  queryClient.setQueryData("TODO_LIST"+projectId,previousData)
           },
 

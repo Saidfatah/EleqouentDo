@@ -1,13 +1,13 @@
 import {useMutation} from  "react-query" 
 import{queryClient} from '../QueryClients/MainClient'
 
-
 let newTodo=null
-
 let todoListTodosCount=0
 let projectTodoListsCount=0
 let targetTodoListIndex= 0
 let newTodoDoneValue=false
+
+
 const useToggleTodo = (todoListId,projectId) => {
    const createNewUpdtedTodosList=(todoId,previousData,toJson,toggleListDone,doneValue,setProgress,progress)=>{
       let temp =[]
@@ -63,6 +63,9 @@ const useToggleTodo = (todoListId,projectId) => {
      
       // update project progress 
       const doneTodoLists = updated_list.filter(td=>td.projectId === projectId && td.done)
+      const projectTodos = updated_list.filter(td=>td.projectId === projectId ).map(tds=>tds.todos).reduce((a,c)=>[...a,...c],[])
+      const projectUndoneTodosCount =projectTodos.filter(td=>!td.done).length  
+      console.log({projectUndoneTodosCount})
       const projects= localStorage.getItem('projects')
       
       if(projects  && projects !== undefined && projects !==null){
@@ -72,39 +75,37 @@ const useToggleTodo = (todoListId,projectId) => {
         const targetProject      = temp_projects.filter(p=>p.id === projectId)[0]
         const targetProjectIndex = temp_projects.indexOf(targetProject)
 
-
-        if(doneTodoLists.length === projectTodoListsCount ){
-          console.log("doneTodoLists.length === projectTodoListsCount")
-          temp_projects[targetProjectIndex].progress  = 1
+        if(projectUndoneTodosCount === projectTodos.length ){
+          temp_projects[targetProjectIndex].progress  = 0
         }else{
-           //count all todos in projects 
-           //calculate how much is the todoList of the project 
-           const projectsTodosCount=targetProject.todosCount
+          if(doneTodoLists.length === projectTodoListsCount ){
+            temp_projects[targetProjectIndex].progress  = 1
+          }else{
+             //count all todos in projects 
+             //calculate how much is the todoList of the project 
+             const projectsTodosCount=targetProject.todosCount
+    
+             const todoListPrecentageInProject = parseFloat(parseFloat(todoListTodosCount / projectsTodosCount ).toFixed(2))
+             // //calculate how mucha todo from this todo list represents in the project
+             const todoItemPercentageInProject = parseFloat(parseFloat( todoListPrecentageInProject /todoListTodosCount).toFixed(2))
+            
+             
+             let progress 
+             const currentProgress=  parseFloat(temp_projects[targetProjectIndex].progress)
+             if(newTodoDoneValue){
+               progress=currentProgress + todoItemPercentageInProject
+             }else{
+               const value = currentProgress -todoItemPercentageInProject
+               progress= value>=0?value:0
+             }
   
-           const todoListPrecentageInProject = parseFloat(parseFloat(todoListTodosCount / projectsTodosCount ).toFixed(2))
-           console.log(todoListPrecentageInProject)
-           // //calculate how mucha todo from this todo list represents in the project
-           const todoItemPercentageInProject = parseFloat(parseFloat( todoListPrecentageInProject /todoListTodosCount).toFixed(2))
-           console.log(todoItemPercentageInProject)
-           
-           let progress 
-           const currentProgress=  parseFloat(temp_projects[targetProjectIndex].progress)
-           if(newTodoDoneValue){
-             progress=currentProgress + todoItemPercentageInProject
-           }else{
-             const value = currentProgress -todoItemPercentageInProject
-             progress= value>=0?value:0
-           }
-           console.log(currentProgress)
-           console.log(progress)
-
-           temp_projects[targetProjectIndex].progress  = parseFloat(progress)
+             temp_projects[targetProjectIndex].progress  = parseFloat(progress)
+          }
         }
 
         localStorage.setItem('projects',JSON.stringify(temp_projects))
         queryClient.refetchQueries(projectId,temp_projects)
       } 
-
 
        localStorage.setItem('todoLists',JSON.stringify(updated_list))
        return  newTodo

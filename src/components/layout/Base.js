@@ -4,7 +4,7 @@ import SlideOverSideBar from './SlideOverSideBar'
 import SlideOverSideBarTriggerButton from './SlideOverSideBarTriggerButton'
 import CreateProject from '../Projects/CreateProject'
 import ProjectsDashBoard from '../Projects/ProjectsDashBoard'
-import ProjectPanel from '../Projects/ProjectPanel'
+import ProjectPanel from '../Projects/ProjectPanel/ProjectPanel'
 import Account from '../Auth/Account'
 
 

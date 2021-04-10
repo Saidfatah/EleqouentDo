@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import Icon from '../common/Icon'
-import { eventsService} from '../../rxjs/ModalService';
 import {Link,useLocation} from "react-router-dom";
 
 
@@ -16,9 +15,7 @@ const SideBar = () => {
         setexpanded(!expanded)
     }
 
-    const revealCreateProjectModal =e=>{
-        eventsService.sendEvent('REVEAL_CREATE_PROJECT_MODAL',true);
-     }
+ 
     const dispatchLogOut =e=>{
         console.log('logout')
     }

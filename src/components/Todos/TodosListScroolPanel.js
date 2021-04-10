@@ -1,31 +1,24 @@
 import React,{useState,useCallback} from 'react'
 import TodosList from './List/Todo list/TodosList'
 import TodoListModalLink from './List/Todo list/TodoListModalLink'
-import update from 'immutability-helper'
-import useFetchTodosListsByProjectId from '../../hooks/todos/useFetchTodosListsByProjectId'
-import {eventsService} from '../../rxjs/ModalService'
+import {eventsService} from '../../rxjs/SubjectService'
 import Icon from '../common/Icon'
-
+import useFetchTodosListsByProjectId from '../../hooks/todos/useFetchTodosListsByProjectId'
+import useReorderTodoLists from '../../hooks/todos/useReorderTodoLists'
 
 
 export const TodosListScroolPanel =({title,done,projectId})=>{
+     const{mutate:reorderTodoLists,isLoading,isSuccess,isError}=  useReorderTodoLists(projectId)
      const{data:todoLists,status,error}=  useFetchTodosListsByProjectId(projectId)
 
      //mutate the todolist's order in project here instead of updattign temp state variable 
-     const moveCardList = useCallback((dragIndex, hoverIndex) => {
-    // const dragCard = orderTodoLists[dragIndex];
-    // setorderTodoLists(update(orderTodoLists, {
-    //         $splice: [
-    //             [dragIndex, 1],
-    //             [hoverIndex, 0, dragCard],
-    //         ],
-    // }));
+     const moveCardList = useCallback((dragedId,hoveredId) => {
+           reorderTodoLists({dragedId,hoveredId})
      }, [todoLists]);
 
      const revealCreateTodoListModal=(e)=>{
           eventsService.sendEvent("REVEAL_CREATE_TODOLIST_MODAL",projectId);
-         
-         }
+     }
 
      if(status === "loading" && !done) return <div>Loading</div>
      if(status ==="success" && (!todoLists || !todoLists.length)  && !done ){
@@ -44,11 +37,15 @@ export const TodosListScroolPanel =({title,done,projectId})=>{
           return null
      }
    
-    const filteredLists= (todoLists &&todoLists.filter(td=>td.done===done) )|| []
+     const filteredLists= (todoLists &&todoLists.filter(td=>td.done===done).sort((a,b)=>{
+                            if (a.orderInProject < b.orderInProject) { return -1; }
+                            if (a.orderInProject > b.orderInProject) { return 1; }
+                            return 0;
+     }) )|| []
  
 
-    const wrraperStyle="flex-1  h-screen sm:h-screen w-auto whitespace-nowrap p-2 flex flex-col items-start relative"
-    return <div className={wrraperStyle} >
+    const wrraperStyle="flex-1  h-screen sm:h-screen w-auto  whitespace-nowrap p-2 flex flex-col items-start relative"
+    return <div   className={wrraperStyle} >
           <h1 className=" text-gray-500 text-xl mb-2 " >{title}</h1>
           <div className="hidden  sm:flex sm:flex-row " >
               {
@@ -59,6 +56,8 @@ export const TodosListScroolPanel =({title,done,projectId})=>{
                 index={index} 
                 />)
                 }
+             <div style={{width:200,height:200}} className=" bg-white opacity-0 " ></div>
+
           </div>
           <div className="flex flex-col   sm:hidden  " >
               {

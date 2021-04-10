@@ -23,7 +23,21 @@ const useRemoveProject = (projectId) => {
     const RemoveProject = async (values)=>{
         const {id}=values
         const projectcs= localStorage.getItem('projects')
-    
+        
+        //remove projects todo lists 
+        const todoLists= localStorage.getItem('todoLists')
+        if(todoLists  && todoLists !== undefined && todoLists !==null){
+           let tempTodoLists =[...JSON.parse(todoLists)]
+           const filterdTodoLists=tempTodoLists.filter(tds=>{
+              const is =tds.projectId.toString() !=  projectId.projectId.toString()
+              console.log(tds.projectId.toString())
+              console.log(projectId.projectId)
+              if(is) return tds
+           })
+           localStorage.setItem('todoLists',JSON.stringify(filterdTodoLists))
+        } 
+
+
         const updatedList=createNewUpdtedTodosList(projectcs,true)
         localStorage.setItem('projects',JSON.stringify(updatedList))
         await new Promise(r=>setTimeout(r, (2000)))

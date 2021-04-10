@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
-import Modal from '../common/Modal'
-import { eventsService} from '../../rxjs/ModalService';
-import useRemoveProject from '../../hooks/projects/useRemoveProject'
+import Modal from '../../common/Modal'
+import { eventsService} from '../../../rxjs/SubjectService';
+import useRemoveProject from '../../../hooks/projects/useRemoveProject'
 import {Redirect} from 'react-router-dom'
 import classnames from 'classnames'
 

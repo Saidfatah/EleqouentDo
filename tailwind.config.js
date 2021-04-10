@@ -34,7 +34,7 @@ module.exports = {
        animation: {
         slide_down : 'slide_down .3s  cubic-bezier(0.4, 0, 0.2, 1) forwards',
         slide_up : 'slide_up .5s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
-        fade_in : 'fade_in .7s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
+        fade_in : 'fade_in .3s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
         fade_in_slide_in : 'fade_in_slide_in .3s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
         slide_in : 'slide_in .2s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',
         fade_out : 'fade_out 1s  cubic-bezier(0.4, 0, 0.2, 1)  forwards',

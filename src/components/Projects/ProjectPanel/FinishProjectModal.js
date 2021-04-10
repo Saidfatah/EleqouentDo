@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
-import Modal from '../common/Modal'
-import { eventsService} from '../../rxjs/ModalService';
+import Modal from '../../common/Modal'
+import { eventsService} from '../../../rxjs/SubjectService';
 
 const FinishProjectModal = () => {
     const [isModalVisible, setisModalVisible] = useState(false)

@@ -65,7 +65,7 @@ const TodosList = ({todoList,index,moveCardList }) => {
            
 
             // Time to actually perform the action
-             moveCardList(dragIndex, hoverIndex);
+            moveCardList(item.id,todoList.id);
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
             // but it's good here for the sake of performance
@@ -76,7 +76,12 @@ const TodosList = ({todoList,index,moveCardList }) => {
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.CARD,
         item: () => {
-            return {  type:ItemTypes.CARD, index };
+            return {  
+                type:ItemTypes.CARD, 
+                index ,
+                id:todoList.id,
+                title:todoList.title,
+            };
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),

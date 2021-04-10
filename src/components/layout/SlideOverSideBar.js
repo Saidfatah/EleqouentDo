@@ -1,7 +1,7 @@
 import React,{useEffect,useState}  from 'react'
 import Icon from '../common/Icon'
 import {Link,useLocation} from "react-router-dom";
-import { eventsService} from '../../rxjs/ModalService';
+import { eventsService} from '../../rxjs/SubjectService';
 
 const SIDE_BAR_WIDTH=150
 const SlideOverSideBar = () => {

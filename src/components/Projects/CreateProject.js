@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import Modal from '../common/Modal'
 import Input from '../common/Input'
-import { eventsService} from '../../rxjs/ModalService';
+import { eventsService} from '../../rxjs/SubjectService';
 import useCreateProject from '../../hooks/projects/useCreateProject'
 
 const CreateProjectFrom=({setisModalVisible})=>{

@@ -5,7 +5,7 @@ import Input from '../../../common/Input'
 import Icon from '../../../common/Icon'
 import Error from '../../../common/Error'
 import TodoItem from './TodoItem'
-import { eventsService} from '../../../../rxjs/ModalService';
+import { eventsService} from '../../../../rxjs/SubjectService';
 import useCreateTodoList from '../../../../hooks/todos/useCreateTodoList'
 import useEditTodoList from '../../../../hooks/todos/useEditTodoList'
 import classnames from 'classnames'

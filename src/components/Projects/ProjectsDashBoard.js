@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from '../common/Icon'
-import { eventsService} from '../../rxjs/ModalService'
+import { eventsService} from '../../rxjs/SubjectService'
 import ProjectLink from './ProjectLink'
 import useFecthProjects from '../../hooks/projects/useFecthProjects'
 
