@@ -5,6 +5,7 @@ import {useParams} from 'react-router-dom'
 import useFecthProjectById from '../../../hooks/projects/useFecthProjectById'
 import CreateTodoList from '../../Todos/List/creat todo list/CreateTodoList'
 import RemoveTodoList from '../../Todos/List/remove Todo list/RemoveTodoList'
+import ProjectStatics from '../ProjectStatics'
 import FinishProjectModal from './FinishProjectModal'
 import RemoveProjectModal from './RemoveProjectModal'
 import useWindowSize  from '../../../hooks/util hooks/useWindowSize'
@@ -32,8 +33,9 @@ export const ProjectPanel = () => {
                 <FinishProjectModal projectId={id} />
                 <div style={{width}} >
                    <div   className={"bg-white overflow-auto   h-screen  p-3   flex flex-row sm:flex-col "} >
-                             <TodosListScroolPanel title="Active lists" done={false} projectId={id} /> 
-                             <TodosListScroolPanel title="Done lists" done={true} projectId={id} />   
+                       <ProjectStatics  projectId={id} project={project}  />
+                       <TodosListScroolPanel title="Active lists" done={false} projectIsDone={project.status} projectId={id}  /> 
+                       <TodosListScroolPanel title="Done lists" done={true} projectId={id} />   
                    </div>
                 </div>
                

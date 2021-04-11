@@ -5,6 +5,7 @@ import SlideOverSideBarTriggerButton from './SlideOverSideBarTriggerButton'
 import CreateProject from '../Projects/CreateProject'
 import ProjectsDashBoard from '../Projects/ProjectsDashBoard'
 import ProjectPanel from '../Projects/ProjectPanel/ProjectPanel'
+import Stats from '../Stats/Stats'
 import Account from '../Auth/Account'
 
 
@@ -31,11 +32,7 @@ const Base = () => {
                     </Route>
                     <Route path="/project/:id" component={ProjectPanel} />
                     <Route path="/projects" component={ProjectsDashBoard} />
-                    <Route path="/stats">
-                        <div>
-                            stats
-                        </div>
-                    </Route>
+                    <Route path="/stats" component={Stats} />
                     <Route path="/account" component={Account} />
                 </Switch>
                 

@@ -1,8 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import Modal from '../../common/Modal'
 import { eventsService} from '../../../rxjs/SubjectService';
+import useFinishProject from '../../../hooks/projects/useFinishProject'
 
-const FinishProjectModal = () => {
+const FinishProjectModal = ({projectId}) => {
+    const {mutate:finishProject,isLoading,isIdle,isError,isSuccess}=useFinishProject(projectId.toString())
     const [isModalVisible, setisModalVisible] = useState(false)
  
 
@@ -12,15 +14,20 @@ const FinishProjectModal = () => {
             if(eventNotification && eventNotification.title==='REVEAL_FINISH_PROJECT_MODAL')
             {
                 setisModalVisible(true)
-                console.log(eventNotification.value)
             }
         });
       
         return ()=>{ subscription.unsubscribe()}
     }, [])
+    useEffect(() => {
+         if(isSuccess){
+            setisModalVisible(false)
+         }
+    }, [isSuccess])
+
     
     const approve=e=>{
-        setisModalVisible(false)
+        finishProject({projectId})
     }
     const deny=e=>{
         setisModalVisible(false)

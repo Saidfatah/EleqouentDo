@@ -94,6 +94,9 @@ module.exports = {
         'half': '.25rem',
         '3quarders': '.25rem',
        },
+       width:{
+        'fit-content': 'fit-content'
+       }
   
     },
   
